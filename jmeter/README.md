@@ -1,6 +1,8 @@
-### Start Servers
+## Run Tests
 
-ssh to servers and execute below
+### 1. Start Servers
+
+SSH to servers and execute the following.
 
 ```sh
 heap_size="500m"
@@ -12,4 +14,15 @@ cd ./apache-jmeter-5.5/bin
 export HEAP="-Xms${heap_size} -Xmx${heap_size}"
 ./jmeter-server
 cd -
+```
+
+### 2. Run Test and Get Results
+
+```sh
+./run-test.sh -u 10 -s 50B
+```
+
+You can derive "Little's law verification" having the following function in a Google Sheet.
+```py
+<Throughput (Requests/sec)> * <Average Response Time (ms)> / 1000
 ```

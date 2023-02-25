@@ -66,10 +66,10 @@ results_dir="${root_dir}/results/${test_namet}/passthrough/${heap_size}_heap/${u
 echo "Results Dir: ${results_dir}"
 mkdir -p ${results_dir}
 kubectl top po --containers > "${results_dir}/start-resources.txt"
-nohup sh -c "sleep 30 && kubectl top po --containers > ${results_dir}/middle-resources.txt" > /dev/null &
+nohup sh -c "sleep 600 && kubectl top po --containers > ${results_dir}/middle-resources.txt" > /dev/null &
 
 # Client
-ssh cc-perf-test-client-1 \
+ssh cc-perf-test-client \
     heap_size=$heap_size user_count=$user_count payload_size=$payload_size duration=$duration host=$host server_ips=$server_ips \
     'bash -s' <<'ENDSSH'
 echo ""

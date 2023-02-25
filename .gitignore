@@ -4,3 +4,6 @@
 
 # IDE
 .idea/
+
+# Tokens
+jwt-tokens/jwt-tokens.csv
