@@ -6,6 +6,6 @@
     ```
 2.  Copy to servers.
     ```sh
-    scp ./jwt-tokens.csv cc-perf-test-server-1:~
-    scp ./jwt-tokens.csv cc-perf-test-server-2:~
+    rsync -chavzP ./jwt-tokens.csv cc-perf-test-server-1:~
+    rsync -chavzP ./jwt-tokens.csv cc-perf-test-server-2:~
     ```

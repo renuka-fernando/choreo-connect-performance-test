@@ -15,7 +15,7 @@ spec:
       containers:
         - name: netty-backend
           image: renukafernando/netty-http-echo-service:0.4.6-ubuntu-java8
-          command:
+          args:
             - "-m"
             - "4g"
           imagePullPolicy: IfNotPresent

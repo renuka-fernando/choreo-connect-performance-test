@@ -44,10 +44,10 @@ spec:
           resources:
             limits:
               memory: "2Gi"
-              cpu: "1000m" # TODO: Renuka Added. And change this
+              cpu: "1000m"
             requests:
-              memory: "2Gi" # TODO: Changed
-              cpu: "1000m" # TODO: Renuka Added. And change this
+              memory: "2Gi"
+              cpu: "1000m"
           startupProbe:
             exec:
               command:

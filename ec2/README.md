@@ -13,12 +13,21 @@ rm apache-jmeter-5.5.tgz
 Generate rmi_keystore.jks and copy it to servers.
 Ref: [https://jmeter.apache.org/usermanual/remote-test.html](https://jmeter.apache.org/usermanual/remote-test.html)
 ```sh
-scp ./rmi_keystore.jks cc-perf-test-server-1:~/apache-jmeter-5.5/bin/rmi_keystore.jks
-scp ./rmi_keystore.jks cc-perf-test-server-2:~/apache-jmeter-5.5/bin/rmi_keystore.jks
+cd $(which jmeter)/..
+rsync -chavzP ./rmi_keystore.jks cc-perf-test-client:~/apache-jmeter-5.5/bin/rmi_keystore.jks
+rsync -chavzP ./rmi_keystore.jks cc-perf-test-server-1:~/apache-jmeter-5.5/bin/rmi_keystore.jks
+rsync -chavzP ./rmi_keystore.jks cc-perf-test-server-2:~/apache-jmeter-5.5/bin/rmi_keystore.jks
+cd -
 ```
 
 Copy test plan to the client.
 ```sh
-scp ../jmeter/apim-test.jmx cc-perf-test-client:~
+rsync -chavzP ../jmeter/apim-test.jmx cc-perf-test-client:~
+
+rsync -chavzP ../payloads/*.json cc-perf-test-server-1:~
+rsync -chavzP ../payloads/*.json cc-perf-test-server-2:~
+
+rsync -chavzP ../jtl-splitter/jtl-splitter-0.4.6-SNAPSHOT.jar cc-perf-test-client:~
 ```
 
+Refer [Copy Tokens](../jwt-tokens/)

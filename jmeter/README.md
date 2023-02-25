@@ -5,7 +5,7 @@
 SSH to servers and execute the following.
 
 ```sh
-heap_size="500m"
+heap_size="1g"
 
 echo "Start Server"
 echo "Heap: ${heap_size}"
@@ -19,7 +19,7 @@ cd -
 ### 2. Run Test and Get Results
 
 ```sh
-./run-test.sh -u 10 -s 50B
+./run-test.sh -u 10 -s 50B -n 'cpu-1' -r <remote_hosts>
 ```
 
 You can derive "Little's law verification" having the following function in a Google Sheet.

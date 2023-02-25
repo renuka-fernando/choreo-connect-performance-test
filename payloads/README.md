@@ -6,6 +6,6 @@
     ```
 2.  Copy to servers.
     ```sh
-    scp ./*.json cc-perf-test-server-1:~
-    scp ./*.json cc-perf-test-server-2:~
+    rsync -chavzP ./*.json cc-perf-test-server-1:~
+    rsync -chavzP ./*.json cc-perf-test-server-2:~
     ```

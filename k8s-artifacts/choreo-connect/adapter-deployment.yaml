@@ -60,11 +60,11 @@ spec:
               value: "admin"
           resources:
             requests:
-              memory: "300Mi"  # TODO:Changed
-              cpu: "200m"  # TODO:Changed
+              memory: "500Mi"
+              cpu: "500m"
             limits:
-              memory: "300Mi"  # TODO:Changed
-              cpu: "200m"  # TODO:Changed
+              memory: "500Mi"
+              cpu: "500m"
           ports:
             - containerPort: 18000
             - containerPort: 9843

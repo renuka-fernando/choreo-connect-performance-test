@@ -75,11 +75,11 @@ spec:
               value: ""
           resources:
             requests:
-              memory: "1000Mi" # TODO:Changed
-              cpu: "500m" # TODO:Changed
+              memory: "1000Mi"
+              cpu: "1000m"
             limits:
-              memory: "1000Mi" # TODO:Changed
-              cpu: "500m" # TODO:Changed
+              memory: "1000Mi"
+              cpu: "1000m"
           ports:
             - containerPort: 8081
             - containerPort: 9001
