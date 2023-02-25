@@ -54,27 +54,23 @@ fi
 # Local Machine
 ## Create deployment
 cd "${root_dir}/k8s-artifacts"
-k delete -f choreo-connect/ -f netty-backend/
-k apply -f choreo-connect/ -f netty-backend/
+kubectl delete -f choreo-connect/ # -f netty-backend/
+kubectl apply -f choreo-connect/ # -f netty-backend/
 sleep 120
-k get po
+kubectl get po
 
-# Server
-ssh cc-perf-test-server-1 heap_size=$heap_size 'bash -s' <<'ENDSSH'
-echo "Start Server 1"
-echo "HOME: ${HOME}"
-echo "Heap: ${heap_size}"
-
-cd ./apache-jmeter-5.5/bin
-export HEAP="-Xms${heap_size} -Xmx${heap_size}"
-./jmeter-server
-cd -
-ENDSSH
+results_dir="${root_dir}/results/passthrough/${heap_size}_heap/${user_count}_users/${payload_size}/0ms_sleep"
+echo "Results Dir: ${results_dir}"
+mkdir -p ${results_dir}
+kubectl top po --containers > "${results_dir}/start-resources.txt"
+nohup sh -c "sleep 30 && kubectl top po --containers > ${results_dir}/10min-resources.txt" > /dev/null &
 
 # Client
 ssh cc-perf-test-client-1 \
     heap_size=$heap_size user_count=$user_count payload_size=$payload_size duration=$duration host=$host server_ips=$server_ips \
     'bash -s' <<'ENDSSH'
+echo ""
+echo ""
 echo "Start Test"
 echo "HOME: ${HOME}"
 echo "Heap: ${heap_size}"
@@ -87,24 +83,23 @@ results_dir="${HOME}/results/passthrough/${heap_size}_heap/${user_count}_users/$
 echo "Results Dir: ${results_dir}"
 
 user_count_per_server=$(($user_count / 2))
-echo "Users per server: ${user_count_per_server}
+echo "Users per server: ${user_count_per_server}"
 
 cd ./apache-jmeter-5.5/bin
-./jmeter -n -t ${HOME}/apim-test-temp.jmx \
+./jmeter -n -t ${HOME}/apim-test.jmx \
     -j "${results_dir}/jmeter.log" \
     -Gusers=$user_count_per_server \
     -Gduration=$duration \
     -Ghost=$host \
-    -GhostHeader=gw.wso2.com
+    -GhostHeader=gw.wso2.com \
     -Gport=443 \
     -Gpath=/echo/1.0.0 \
-    -Gpayload="/home/ubuntu/${payload_size}.json" \
+    -Gpayload="${HOME}/${payload_size}.json" \
     -Gresponse_size=$payload_size \
     -Gprotocol=https \
-    -Gtokens=/home/ubuntu/tokens.csv \
+    -Gtokens=${HOME}/jwt-tokens.csv \
     -l "${results_dir}/results.jtl" \
     -R "${server_ips}"
-cd -
 ENDSSH
 
-
+kubectl top po --containers > "${results_dir}/end-resources.txt"

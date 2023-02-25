@@ -1,3 +1,6 @@
 # Certs
 *.cer
 *.pem
+
+# IDE
+.idea/
