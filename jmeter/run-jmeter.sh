@@ -82,12 +82,12 @@ echo "Payload: ${payload_size}"
 echo "Results Dir: ${results_dir}"
 
 export HEAP="-Xms${heap_size} -Xmx${heap_size}"
-rm -rf "${results_dir}"
 
 user_count_per_server=$(($user_count / 2))
 echo "Users per server: ${user_count_per_server}"
 
-cd ./apache-jmeter-5.5/bin
+set -x
+cd "${HOME}/apache-jmeter-5.5/bin"
 ./jmeter -n -t ${HOME}/apim-test.jmx \
     -j "${results_dir}/jmeter.log" \
     -Gusers="$user_count_per_server" \
@@ -102,6 +102,7 @@ cd ./apache-jmeter-5.5/bin
     -Gtokens="${HOME}/jwt-tokens-${user_count}.csv" \
     -l "${results_dir}/results.jtl" \
     -R "${jmeter_servers}"
+set +x
 
 cd "$results_dir"
 java -jar ~/jtl-splitter-0.4.6-SNAPSHOT.jar -f results.jtl -p -s -u MINUTES -t 5

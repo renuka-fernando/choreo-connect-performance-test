@@ -10,9 +10,9 @@ kubectl apply -f choreo-connect/ -f netty-backend/
 
 echo ""
 echo "Waiting for Deployments..."
-kubectl wait --for condition=available --all deploy
+kubectl wait --for condition=available --all --timeout 120s deploy
 echo ""
 kubectl get po
 echo ""
 
-
+sleep 30

@@ -55,18 +55,17 @@ fi
 # Run Test
 for user_count in "${user_counts_array[@]}"; do
     for payload_size in "${payloads_array[@]}"; do
-        echo "############################## Start Test ##############################"
+        echo "############################### Start Test ###############################"
         echo "Users Count: $user_count"
         echo "Payload Size: $payload_size"
-        echo ""
 
         results_dir="${HOME}/results/${test_name}/passthrough/${heap_size}_heap/${user_count}_users/${payload_size}/0ms_sleep"
         echo "Results Dir: ${results_dir}"
         mkdir -p "${results_dir}"
+        echo ""
 
         ./redeploy-cc.sh
-
-        kubectl top po --containers >"${results_dir}/start-resources.txt"
+        kubectl top po --containers > "${results_dir}/start-resources.txt"
         nohup sh -c "sleep 600 && kubectl top po --containers > ${results_dir}/middle-resources.txt" >/dev/null &
 
         ./run-jmeter.sh -m "$heap_size" -u "$user_count" -p "$payload_size" -d "$duration" -i "$ingress_host" -s "$remote_hosts" -r "$results_dir"
