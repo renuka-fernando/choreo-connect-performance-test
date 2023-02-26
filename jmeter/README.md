@@ -19,7 +19,7 @@ cd -
 ### 2. Run Test and Get Results
 
 ```sh
-./run-test.sh -u 10 -s 50B -n 'cpu-1' -r <remote_hosts>
+./run-test-local-machiine.sh -u 10 -s 50B -n 'cpu-1' -r <remote_hosts>
 ```
 
 You can derive "Little's law verification" having the following function in a Google Sheet.
