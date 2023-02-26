@@ -5,7 +5,7 @@
 SSH to servers and execute the following.
 
 ```sh
-heap_size="1g"
+heap_size="4g"
 
 echo "Start Server"
 echo "Heap: ${heap_size}"

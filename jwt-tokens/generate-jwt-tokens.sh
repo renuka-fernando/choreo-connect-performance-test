@@ -63,7 +63,7 @@ if [[ -z $consumer_key ]]; then
 fi
 
 mkdir -p "$script_dir/target"
-tokens_file="$script_dir/target/jwt-tokens.csv"
+tokens_file="$script_dir/target/jwt-tokens-${tokens_count}.csv"
 
 if [[ -f $tokens_file ]]; then
     mv $tokens_file /tmp

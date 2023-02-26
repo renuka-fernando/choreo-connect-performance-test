@@ -69,7 +69,7 @@ fi
 # Local Machine
 ## Create deployment
 cd "${root_dir}/k8s-artifacts"
-kubectl delete -f choreo-connect/ -f netty-backend/
+kubectl delete -f choreo-connect/ -f netty-backend/ || true
 kubectl apply -f choreo-connect/ -f netty-backend/
 
 echo ""
@@ -117,7 +117,7 @@ cd ./apache-jmeter-5.5/bin
     -Gpayload="${HOME}/${payload_size}.json" \
     -Gresponse_size=$payload_size \
     -Gprotocol=https \
-    -Gtokens=${HOME}/jwt-tokens.csv \
+    -Gtokens=${HOME}/jwt-tokens-${user_count}.csv \
     -l "${results_dir}/results.jtl" \
     -R "${remote_hosts}"
 
