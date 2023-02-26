@@ -118,3 +118,17 @@ echo ""
 echo "############## RESULTS ##############"
 echo ""
 cat results-measurement-summary.json
+echo ""
+
+echo "############## RESULTS SUMMARY ##############"
+echo "Users: ${user_count}"
+echo "Payload: ${payload_size}"
+echo ""
+
+# print as a table
+columns='["Total","AGV","TPS","ERR%","ERR","90th","95th","99th"]'
+separator='["------","------","------","------","------","------","------","------"]'
+column_values='([."HTTP Request".samples, ."HTTP Request".mean, ."HTTP Request".throughput, ."HTTP Request".errorPercentage, ."HTTP Request".errors, ."HTTP Request".p90, ."HTTP Request".p95, ."HTTP Request".p99])'
+
+jq -r "${columns}, ${separator}, ${column_values} | @tsv" < results-measurement-summary.json
+echo ""

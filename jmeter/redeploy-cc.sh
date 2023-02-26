@@ -5,8 +5,8 @@ root_dir="${script_dir}/.."
 
 # Create deployment
 cd "${root_dir}/k8s-artifacts"
-kubectl delete -f choreo-connect/ -f netty-backend/ || true
-kubectl apply -f choreo-connect/ -f netty-backend/
+kubectl delete -f choreo-connect/ -f netty-backend/ > /dev/null || true
+kubectl apply -f choreo-connect/ -f netty-backend/ > /dev/null
 
 echo ""
 echo "Waiting for Deployments..."
@@ -15,4 +15,5 @@ echo ""
 kubectl get po
 echo ""
 
+echo "Waiting 30s to cool down..."
 sleep 30
