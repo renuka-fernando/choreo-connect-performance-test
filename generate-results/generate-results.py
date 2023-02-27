@@ -1,6 +1,11 @@
 import json
 import csv
 import getpass
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-n", "--name", help="Test name")
+args = parser.parse_args()
 
 username = getpass.getuser()
 print("Current OS user: ", username)
@@ -25,7 +30,7 @@ with open('results_summary.csv', 'a', newline='') as csv_file:
     for payload_size in payload_sizes:
         for user_count in user_counts:
             # Generate the filename for the current combination of payload_size and user_count
-            filename = f"/home/{username}/results/cpu-1/passthrough/1g_heap/{user_count}_users/{payload_size}/0ms_sleep/results-measurement-summary.json"
+            filename = f"/home/{username}/results/{args.name}/passthrough/1g_heap/{user_count}_users/{payload_size}/0ms_sleep/results-measurement-summary.json"
 
             with open(filename, 'r') as json_file:
                 # Load the JSON data
