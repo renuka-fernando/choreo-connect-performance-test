@@ -11,14 +11,16 @@ username = getpass.getuser()
 print("Current OS user: ", username)
 
 # Specify which columns to include in the results_summary CSV file
-columns = ['payload_size', 'user_count', 'samples', 'mean', 'throughput', 'errors', 'errorPercentage', 'p90', 'p95', 'p99']
+columns = ['user_count', 'payload_size', 'samples', 'mean', 'throughput', 'errors', 'errorPercentage', 'p90', 'p95', 'p99']
+columns_display = ['Concurrent Users', 'Message Size (Bytes)', 'Total requests', 'Average Response Time (ms)', 'Throughput (Requests/sec)', 'Error %', 'Error Count', '90th Percentile of Response Time (ms)', '95th Percentile of Response Time (ms)', '99th Percentile of Response Time (ms)']
 
 # Specify the values for payload_size and user_count
 payload_sizes = ['50B', '1024B', '10240B', '102400B']
+payload_sizes_display = {'50B': '50B', '1024B': '1KiB', '10240B': '10KiB', '102400B': '100KiB'}
 user_counts = [10, 50, 100, 200, 500, 1000]
 
 # Open the CSV file for writing or appending
-with open('results_summary.csv', 'a', newline='') as csv_file:
+with open(f'results_summary-{args.name}.csv', 'w', newline='') as csv_file:
 
     # Create a CSV writer object
     writer = csv.writer(csv_file)
@@ -40,11 +42,11 @@ with open('results_summary.csv', 'a', newline='') as csv_file:
                 http_request = data['HTTP Request']
 
                 # Extract the values for the selected columns
-                row = [payload_size, user_count] + [http_request[col] for col in columns[2:]]
+                row = [user_count, payload_sizes_display[payload_size]] + [http_request[col] for col in columns[2:]]
 
                 # Write the header row if the file is empty
                 if is_empty:
-                    writer.writerow(columns)
+                    writer.writerow(columns_display)
                     is_empty = False
 
                 # Write the data row
