@@ -7,3 +7,6 @@
 
 # Tokens
 target/
+
+# Plots
+generate-results/plots

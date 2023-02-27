@@ -30,4 +30,6 @@ rsync -chavzP ../payloads/*.json cc-perf-test-server-2:~
 rsync -chavzP ../jtl-splitter/jtl-splitter-0.4.6-SNAPSHOT.jar cc-perf-test-client:~
 ```
 
+Install kubectl and aws cli on the JMeter client VM and configure the connection to the cluster. So JMeter client VM can communicate with cluster via kubectl.
+
 Refer [Copy Tokens](../jwt-tokens/)

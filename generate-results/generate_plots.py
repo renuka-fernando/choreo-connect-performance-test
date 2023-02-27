@@ -19,11 +19,16 @@ import matplotlib
 # matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 parser = argparse.ArgumentParser(description='Create plots')
-parser.add_argument('-f', '--file', required=False,
-                    help='The summary CSV file name.', type=str, default='summary.csv')
+parser.add_argument('-f', '--file', required=False, help='The summary CSV file name.', type=str, default='summary.csv')
+parser.add_argument('-n', '--name', required=False, help='Test name.', type=str, default='cpu-1')
 args = parser.parse_args()
+
+path = os.path.join('plots', args.name)
+if not os.path.exists(path):
+    os.makedirs(path)
 
 # PLOT_COLUMN_RANGE_START = plotcommon.PLOT_COLUMN_RANGE_START
 # PLOT_COLUMN_RANGE_END = plotcommon.PLOT_COLUMN_RANGE_END
@@ -55,7 +60,7 @@ def tps():
     
     plt.legend(title="Message Size")
     plt.title('Throughput vs Concurrent Users for 0ms backend delay')
-    plt.savefig('tps_0ms.png')
+    plt.savefig(os.path.join(path, 'tps_0ms.png'))
     plt.clf()
 
 
@@ -81,7 +86,7 @@ def response_time():
     
     plt.legend(title="Message Size")
     plt.title('Average Response Time (ms) vs Concurrent Users for 0ms backend delay')
-    plt.savefig('response_time_0ms.png')
+    plt.savefig(os.path.join(path, 'response_time_0ms.png'))
     plt.clf()
 
 
@@ -333,7 +338,7 @@ def percentiles():
 
     df4.plot(ylabel='Response Time (ms)', x="Concurrent Users", y=["90th Percentile of Response Time (ms)", "95th Percentile of Response Time (ms)", "99th Percentile of Response Time (ms)"], kind="bar",figsize=(19,18), ax=axes[1,1])
     plt.title('Message size = 100KiB')
-    plt.savefig('percentiles_0ms.png')
+    plt.savefig(os.path.join(path, 'percentiles_0ms.png'))
     # plt.show()
 
 
