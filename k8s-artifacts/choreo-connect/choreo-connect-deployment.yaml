@@ -64,7 +64,7 @@ spec:
             - name: XDS_MAX_RETRIES
               value: "3"
             - name: JAVA_OPTS
-              value: "-Dhttpclient.hostnameVerifier=AllowAll -Xms512m -Xmx512m -XX:MaxRAMFraction=2"
+              value: "-Dhttpclient.hostnameVerifier=AllowAll -Xms1500m -Xmx1500m"
             - name: enforcer_admin_pwd
               value: "admin"
             - name: tm_admin_pwd
@@ -75,10 +75,10 @@ spec:
               value: ""
           resources:
             requests:
-              memory: "1000Mi"
+              memory: "2000Mi"
               cpu: "1000m"
             limits:
-              memory: "1000Mi"
+              memory: "2000Mi"
               cpu: "1000m"
           ports:
             - containerPort: 8081
@@ -136,14 +136,14 @@ spec:
             - name: ENFORCER_CA_CERT_PATH
               value: "/home/wso2/security/truststore/mg.pem"
             - name: CONCURRENCY
-              value: "2"
+              value: "4"
           resources:
             requests:
               memory: "500Mi"
-              cpu: "1000m"
+              cpu: "2000m"
             limits:
               memory: "500Mi"
-              cpu: "1000m"
+              cpu: "2000m"
           ports:
             - containerPort: 9000
             - containerPort: 9095

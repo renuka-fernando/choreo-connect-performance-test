@@ -21,7 +21,7 @@ cd -
 ### 2. Run Test and Get Results
 
 ```sh
-nohup ./run-test-jmeter-client.sh -n 'cpu-1' -r '<remote_hosts_1>,<remote_hosts_2>' -i '<ingress_host>' >> ~/perf_test.out 2>&1 &
+nohup ./run-test-jmeter-client.sh -n 'cpu-2' -r '<remote_hosts_1>,<remote_hosts_2>' -i '<ingress_host>' >> ~/perf_test.out 2>&1 &
 echo $! > nohupid.txt
 tail -f ~/perf_test.out
 ```
