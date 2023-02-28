@@ -4,7 +4,7 @@ heap_size="1g"
 user_count=10
 payload_size=50B
 duration=1200
-ingress_host=3.141.180.55
+ingress_host=
 jmeter_servers=""
 results_dir=""
 
@@ -70,6 +70,11 @@ fi
 
 if [[ -z $jmeter_servers ]]; then
     echo "Please specify remote hosts."
+    exit 1
+fi
+
+if [[ -z $ingress_host ]]; then
+    echo "Please specify ingress hosts."
     exit 1
 fi
 

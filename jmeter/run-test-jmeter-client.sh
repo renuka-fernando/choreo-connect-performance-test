@@ -66,6 +66,7 @@ for user_count in "${user_counts_array[@]}"; do
 
         ./redeploy-cc.sh
         kubectl top po --containers > "${results_dir}/start-resources.txt"
+        kubectl get po -owide -A > "${results_dir}/pods-distribution.txt"
         nohup sh -c "sleep 600 && kubectl top po --containers > ${results_dir}/middle-resources.txt" >/dev/null &
 
         ./run-jmeter.sh -m "$heap_size" -u "$user_count" -p "$payload_size" -d "$duration" -i "$ingress_host" -s "$remote_hosts" -r "$results_dir"

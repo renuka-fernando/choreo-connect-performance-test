@@ -1,11 +1,22 @@
 ## Run Tests
 
-### 1. Start Servers
+### 1. Reinstall ingress controller and APIM (Optional)
+
+```sh
+kubectl delete -f ../k8s-artifacts/apim/ -f ../k8s-artifacts/choreo-connect
+kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/aws/deploy.yaml
+
+sleep 60
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/aws/deploy.yaml
+kubectl apply -f ../k8s-artifacts/apim/ -f ../k8s-artifacts/choreo-connect
+```
+
+### 2. Start Servers
 
 SSH to servers and execute the following.
 
 ```sh
-heap_size="4g"
+heap_size="1g"
 
 echo "Start Server"
 echo "Heap: ${heap_size}"
@@ -18,7 +29,7 @@ tail ~/perf_test.out -f
 cd -
 ```
 
-### 2. Run Test and Get Results
+### 3. Run Test and Get Results
 
 ```sh
 nohup ./run-test-jmeter-client.sh -n 'cpu-2' -r '<remote_hosts_1>,<remote_hosts_2>' -i '<ingress_host>' >> ~/perf_test.out 2>&1 &

@@ -22,6 +22,7 @@ metadata:
   name: config-toml
 data:
   config.toml: |
+    # This is for Router 2vCPU scenario.
     [enforcer.authService]
       # Port of the Enforcer auth service
       port = 8081
