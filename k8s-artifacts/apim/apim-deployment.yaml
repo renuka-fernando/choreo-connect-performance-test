@@ -47,7 +47,6 @@ spec:
               cpu: "1000m"
             requests:
               memory: "2Gi"
-              cpu: "1000m"
           startupProbe:
             exec:
               command:

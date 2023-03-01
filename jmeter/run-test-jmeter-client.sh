@@ -65,26 +65,28 @@ for user_count in "${user_counts_array[@]}"; do
         echo ""
 
         ./redeploy-cc.sh
-        kubectl top po --containers > "${results_dir}/start-resources.txt"
+        kubectl top po --containers -A > "${results_dir}/resources-start.txt"
         kubectl get po -owide -A > "${results_dir}/pods-distribution.txt"
-        nohup sh -c "sleep 600 && kubectl top po --containers > ${results_dir}/middle-resources.txt" >/dev/null &
+        nohup sh -c "sleep 300 && kubectl top po --containers -A > ${results_dir}/resources-5min.txt" >/dev/null &
+        nohup sh -c "sleep 600 && kubectl top po --containers -A > ${results_dir}/resources-10min.txt" >/dev/null &
+        nohup sh -c "sleep 900 && kubectl top po --containers -A > ${results_dir}/resources-15min.txt" >/dev/null &
 
         ./run-jmeter.sh -m "$heap_size" -u "$user_count" -p "$payload_size" -d "$duration" -i "$ingress_host" -s "$remote_hosts" -r "$results_dir"
 
-        kubectl top po --containers >"${results_dir}/end-resources.txt"
+        kubectl top po --containers -A >"${results_dir}/resources-end.txt"
 
         echo ""
         echo ""
         echo "Resources"
         echo ""
         echo "Start"
-        cat "${results_dir}/start-resources.txt"
+        cat "${results_dir}/resources-start.txt"
         echo ""
         echo "10 min"
-        cat "${results_dir}/middle-resources.txt"
+        cat "${results_dir}/resources-10min.txt"
         echo ""
         echo "End"
-        cat "${results_dir}/end-resources.txt"
+        cat "${results_dir}/resources-end.txt"
 
         echo "################################ End Test ################################"
     done
