@@ -38,12 +38,8 @@ cd -
 
 Copy test plan to the client.
 ```sh
-rsync -chavzP ../jmeter/apim-test.jmx cc-perf-test-client:~
-
 rsync -chavzP ../payloads/*.json cc-perf-test-server-1:~
 rsync -chavzP ../payloads/*.json cc-perf-test-server-2:~
-
-rsync -chavzP ../jtl-splitter/jtl-splitter-0.4.6-SNAPSHOT.jar cc-perf-test-client:~
 ```
 
 Install kubectl and aws cli on the JMeter client VM and configure the connection to the cluster. So JMeter client VM can communicate with cluster via kubectl.

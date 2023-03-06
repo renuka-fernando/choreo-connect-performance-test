@@ -1,4 +1,5 @@
 set -e
+script_dir=$(dirname "$(readlink -f "$0")")
 
 heap_size="1g"
 user_count=10
@@ -93,7 +94,7 @@ echo "Users per server: ${user_count_per_server}"
 
 set -x
 cd "${HOME}/apache-jmeter-5.3/bin"
-./jmeter -n -t ${HOME}/apim-test.jmx \
+./jmeter -n -t "${script_dir}/apim-test.jmx" \
     -j "${results_dir}/jmeter.log" \
     -Gusers="$user_count_per_server" \
     -Gduration="$duration" \
@@ -110,7 +111,7 @@ cd "${HOME}/apache-jmeter-5.3/bin"
 set +x
 
 cd "$results_dir"
-java -jar ~/jtl-splitter-0.4.6-SNAPSHOT.jar -f results.jtl -p -s -u MINUTES -t 5
+java -jar "${script_dir}/../jtl-splitter/jtl-splitter-0.4.6-SNAPSHOT.jar" -f results.jtl -p -s -u MINUTES -t 5
 
 tar -czf results.jtl.gz results.jtl
 rm results.jtl
