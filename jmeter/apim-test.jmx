@@ -19,8 +19,6 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${__P(users)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(rampUpPeriod,60)}</stringProp>
-        <longProp name="ThreadGroup.start_time">1499334866000</longProp>
-        <longProp name="ThreadGroup.end_time">1499334866000</longProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${__P(duration)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -82,7 +80,7 @@
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-          <stringProp name="HTTPSampler.response_timeout">600000</stringProp>
+          <stringProp name="HTTPSampler.response_timeout">20000</stringProp>
         </HTTPSamplerProxy>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">

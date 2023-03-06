@@ -2,15 +2,17 @@ set -e
 
 script_dir=$(dirname "$0")
 root_dir="${script_dir}/.."
-
-# Create deployment
 cd "${root_dir}/k8s-artifacts"
-kubectl delete -f choreo-connect/ -f netty-backend/ > /dev/null || true
-kubectl delete po -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
 
-echo "Waiting 30s to cool down..."
-sleep 30
+# Deploy if the deployment is not present
 kubectl apply -f choreo-connect/ -f netty-backend/ > /dev/null
+
+# Restart
+echo "Restarting Choreo Connect, Netty Backend and Nginx Ingress ..."
+kubectl delete po -l app=choreo-connect-adapter > /dev/null || true
+kubectl delete po -l app=choreo-connect-deployment > /dev/null || true
+kubectl delete po -l app=netty-backend > /dev/null || true
+kubectl delete po -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
 
 echo ""
 echo "Waiting for Deployments..."

@@ -92,7 +92,7 @@ user_count_per_server=$(($user_count / 2))
 echo "Users per server: ${user_count_per_server}"
 
 set -x
-cd "${HOME}/apache-jmeter-5.5/bin"
+cd "${HOME}/apache-jmeter-5.3/bin"
 ./jmeter -n -t ${HOME}/apim-test.jmx \
     -j "${results_dir}/jmeter.log" \
     -Gusers="$user_count_per_server" \
