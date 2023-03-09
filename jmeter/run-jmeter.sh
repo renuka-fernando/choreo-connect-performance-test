@@ -101,7 +101,7 @@ cd "${HOME}/apache-jmeter-5.3/bin"
     -Ghost="$ingress_host" \
     -GhostHeader=gw.wso2.com \
     -Gport=443 \
-    -Gpath=/echo/1.0.0 \
+    -Gpath=/echo/1.0.0/ \
     -Gpayload="${HOME}/${payload_size}.json" \
     -Gresponse_size="$payload_size" \
     -Gprotocol=https \
